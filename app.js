@@ -11,6 +11,7 @@ var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
 
 
+
 var app = express();
 
 // view engine setup
@@ -39,6 +40,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter); 
+
 
 
 // catch 404 and forward to error handler

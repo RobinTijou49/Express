@@ -32,4 +32,5 @@ Le serveur sera accessible sur : http://localhost:8080
 | `/logout`      | GET      | Déconnexion et suppression de session                   |
 | `/download`    | GET      | Téléchargement d’un fichier texte avec la date actuelle |
 | `/error`       | GET      | Page d’erreur volontaire                                |
+| `/users/:id`   | GET      | Page de profil avec un id passer dans l'url             |
 | Tout autre URL | GET      | Page 404 personnalisée                                  |
