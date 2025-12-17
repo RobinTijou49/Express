@@ -12,8 +12,8 @@
 		<div>
 			<label for="devise">Devise :</label>
 			<select id="devise" name="devise">
-				<option value="€" <%= (devise = '€') %>>€</option>
-				<option value="$" <%= (devise = '$') %>>$</option>
+				<option value="€" <%= (devise === '€') ? 'selected' : '' %>>€</option>
+				<option value="$" <%= (devise === '$') ? 'selected' : '' %>>$</option>
 			</select>
 		</div>
 
