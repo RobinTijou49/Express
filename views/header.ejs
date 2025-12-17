@@ -7,26 +7,29 @@
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1>TP API</h1>
-      <nav>
-        <ul>
-          <li><a href="/">Accueil</a></li>
-          <li><a href="/about">À propos</a></li>
-          <li><a href="/contact">Contact</a></li>
-          <li><a href="/download">Télécharger</a></li>
-          <li><a href="/dab">DAB</a></li>
-          <li><a href="/error">Erreur</a></li>
-          <% if (!username) { %>
-            <li><a href="/login">Login</a></li>
-          <% } else { %>
-            <li><a href="/logout">Se déconnecter</a></li>
-          <% } %>
-        </ul>
+  <header class="site-header">
+    <div class="container top">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"></span>
+        <h1>TP API</h1>
+      </div>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="/">Accueil</a>
+        <a href="/about">À propos</a>
+        <a href="/contact">Contact</a>
+        <a href="/download">Télécharger</a>
+        <a href="/dab">DAB</a>
+        <a href="/error">Erreur</a>
+        <% if (!username) { %>
+          <a href="/login">Login</a>
+        <% } else { %>
+          <a href="/logout">Se déconnecter</a>
+        <% } %>
       </nav>
+
       <% if (username) { %>
-        <p class="welcome-msg">Bienvenue <%= username %> !</p>
+        <div class="welcome-msg small">Bienvenue <strong><%= username %></strong></div>
       <% } %>
     </div>
   </header>

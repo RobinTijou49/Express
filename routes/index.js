@@ -53,13 +53,13 @@ router.get('/download', (req, res) => {
 });
 
 
-router.get('/dab', function(req, res, next) {
-  res.render('dab', { title: 'Dab', montant: '', devise: '€' });
+router.get('/dab', (req, res) => {
+  res.render('dab', { title: 'Dab', montant: null, devise: '€', result: null });
 });
 
 
-router.post('/dab', function(req, res, next) {
-  const montant = req.body.montant;
+router.post('/dab', function(req, res) {
+  const montant = parseFloat(req.body.montant);
   const devise = req.body.devise || '€';
 
   const result = determineCoupure({ montant, typeDevise: devise });
