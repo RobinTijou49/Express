@@ -97,3 +97,9 @@ footer.site-footer{padding:24px 0;text-align:center;color:var(--muted);border-to
 /* utilities */
 .mt-8{margin-top:8px}.mb-8{margin-bottom:8px}
 
+/* auth card & form tweaks */
+.auth-card{max-width:420px;margin:20px auto;padding:22px}
+.auth-card h2{margin:0 0 12px;text-align:center}
+.form-actions{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.card a{color:var(--accent-2);text-decoration:none} 
+
