@@ -19,6 +19,9 @@ app.listen(port, "0.0.0.0", () => {
   console.log(`Serveur démarré sur le port ${port}`);
 });
 
+const basePath = "/tp-api";
+app.use(basePath, express.static(path.join(__dirname, 'public')));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -41,12 +44,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/login', loginRouter);
-app.use('/logout', logoutRouter); 
-
-
+app.use(`${basePath}/`, indexRouter);
+app.use(`${basePath}/users`, usersRouter);
+app.use(`${basePath}/login`, loginRouter);
+app.use(`${basePath}/logout`, logoutRouter); 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

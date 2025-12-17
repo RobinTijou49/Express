@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
       console.error(err);
       return res.redirect('/');
     }
-    res.redirect('/'); // redirige vers la page d'accueil
+    res.redirect('/tp-api');
   });
 });
 

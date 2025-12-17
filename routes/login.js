@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
   if (username === 'admin' && password === 'admin') {
     req.session.username = username;
     req.session.isAdmin = true;
-    return res.redirect('/');
+    return res.redirect('/tp-api');
   }
 
   res.render('login', {
