@@ -3,7 +3,6 @@ const path = require('path');
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
@@ -50,4 +49,23 @@ router.get('/download', (req, res) => {
     }
   });
 });
+
+
+router.get('/dab', function(req, res, next) {
+  res.render('dab', { title: 'Dab', montant: '', devise: '€' });
+});
+
+
+router.post('/dab', function(req, res, next) {
+  const montant = req.body.montant;
+  const devise = req.body.devise || '€';
+  const { determineCoupure } = require('../dab');
+
+  const result = determineCoupure({ montant, typeDevise: devise });
+
+  res.render('dab', { title: 'Dab', montant, devise, result });
+});
+
+
+
 module.exports = router;
