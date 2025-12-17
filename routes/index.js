@@ -53,6 +53,8 @@ router.get('/download', (req, res) => {
 });
 
 
+
+
 router.get('/dab', (req, res) => {
   res.render('dab', { title: 'Dab', montant: null, devise: '€', result: null });
 });
@@ -67,6 +69,10 @@ router.post('/dab', function(req, res) {
   res.render('dab', { title: 'Dab', montant, devise, result });
 });
 
+
+router.get('/chat', (req, res) => {
+  res.render('chat', { title: 'Chat Socket.IO' });
+});
 
 
 module.exports = router;

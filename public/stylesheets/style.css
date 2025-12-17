@@ -103,3 +103,36 @@ footer.site-footer{padding:24px 0;text-align:center;color:var(--muted);border-to
 .form-actions{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .card a{color:var(--accent-2);text-decoration:none} 
 
+#messages {
+  border: 1px solid #ccc;
+  height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #111; /* fond sombre pour le chat */
+  color: #eee;           /* texte clair */
+  border-radius: 5px;
+}
+
+.messages .message {
+  margin-bottom: 8px;
+}
+
+
+.messages .message strong {
+  font-weight: bold;
+}
+
+.messages .message .self {
+  color: red; /* pseudo utilisateur connecté en rouge */
+}
+
+.messages .date {
+  float: right;
+  font-size: 0.8em;
+  color: #aaa;
+}
+
+.chat-container {
+  max-width: 800px;
+  margin: auto;
+}

@@ -1,0 +1,37 @@
+<%- include("header", { title: title }) %>
+
+<h1><%= title %></h1>
+
+<div class="chat-container">
+
+  <!-- CONNEXION -->
+  <div id="login" class="card">
+    <input id="pseudo" placeholder="Votre pseudo" class="input-field" />
+    <select id="room" class="input-field">
+      <option value="general">Général</option>
+      <option value="dev">Dev</option>
+      <option value="random">Random</option>
+    </select>
+    <button id="join" class="btn">Rejoindre</button>
+  </div>
+
+<!-- CHAT -->
+<div id="chat" class="card" style="display:none; margin-top:20px;">
+  
+  <!-- Bouton changer de salon -->
+  <button id="changeRoom" class="btn" style="margin-bottom:10px;">Changer de salon</button>
+
+  <div id="messages" class="messages"></div>
+
+  <div style="margin-top:10px;">
+    <input id="messageInput" placeholder="Votre message" class="input-field" />
+    <button id="send" class="btn">Envoyer</button>
+  </div>
+</div>
+
+
+<!-- Socket.IO -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="/tp-api/js/chat.js"></script>
+
+<%- include("footer") %>
