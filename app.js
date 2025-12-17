@@ -15,7 +15,7 @@ var logoutRouter = require('./routes/logout');
 var app = express();
 
 const port = process.env.PORT || 8000;
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Serveur démarré sur le port ${port}`);
 });
 
