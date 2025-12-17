@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 var express = require('express');
 var router = express.Router();
+const { determineCoupure } = require('../dab');
+
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -59,7 +61,6 @@ router.get('/dab', function(req, res, next) {
 router.post('/dab', function(req, res, next) {
   const montant = req.body.montant;
   const devise = req.body.devise || '€';
-  const { determineCoupure } = require('../dab');
 
   const result = determineCoupure({ montant, typeDevise: devise });
 

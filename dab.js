@@ -1,7 +1,3 @@
-// Module to determine banknote/coin distribution for a given amount
-// Usage: const { determineCoupure } = require('./dab');
-
-// Original-style determineCoupure, adapted for CommonJS export
 function determineCoupure(params) {
 
   let result = {
