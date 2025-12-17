@@ -14,6 +14,11 @@ var logoutRouter = require('./routes/logout');
 
 var app = express();
 
+const port = process.env.PORT || 8000;
+app.listen(port, () => {
+  console.log(`Serveur démarré sur le port ${port}`);
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -66,3 +71,6 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
+
+
+
