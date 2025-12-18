@@ -68,12 +68,9 @@ app.use(`${basePath}/`, indexRouter);
 app.use(`${basePath}/users`, usersRouter);
 app.use(`${basePath}/login`, loginRouter);
 app.use(`${basePath}/logout`, logoutRouter);
+app.use(`${basePath}/api/messages`, messagesRouter);
 
-
-app.use('/api/messages', messagesRouter);
 app.get('/', (req, res) => res.send('API fonctionne ✅'));
-
-
 
 app.use(function(req, res, next) {
   next(createError(404));
