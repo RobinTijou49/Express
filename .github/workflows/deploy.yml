@@ -13,19 +13,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      # 1️⃣ Supprimer node_modules côté VPS pour éviter les conflits
-      - name: Clean node_modules on VPS
-        uses: appleboy/ssh-action@v0.1.7
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: 22
-          script: |
-            cd /var/www/TP-API/Express
-            rm -rf node_modules
-
-      # 2️⃣ Copier tous les fichiers (sans exclure)
+      # Copier tous les fichiers sur le VPS
       - name: Copy files to VPS
         uses: appleboy/scp-action@v0.1.6
         with:
@@ -38,8 +26,8 @@ jobs:
           strip_components: 1
           rm: false
 
-      # 3️⃣ Installer les dépendances et redémarrer l'app
-      - name: SSH and restart app
+      # Installer les dépendances directement sur le VPS et redémarrer l'app
+      - name: SSH, install deps and restart app
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -48,5 +36,6 @@ jobs:
           port: 22
           script: |
             cd /var/www/TP-API/Express
-            npm install
+            rm -rf node_modules package-lock.json       # Nettoyer complètement
+            npm install                                 # Installer sur Linux
             pm2 restart mon-express || pm2 start app.js --name mon-express
