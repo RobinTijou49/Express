@@ -43,10 +43,26 @@ socket.on("newMessage", (data) => {
 });
 
 // envoyer message
+const messageForm = document.getElementById("messageForm");
+
+// click on the button
 document.getElementById("send").addEventListener("click", sendMessage);
+
+// Enter key inside the input — prevent default to avoid form submit
 document.getElementById("messageInput").addEventListener("keypress", (e) => {
-  if (e.key === "Enter") sendMessage();
+  if (e.key === "Enter") {
+    e.preventDefault();
+    sendMessage();
+  }
 });
+
+// handle form submit (covers pressing Enter in some browsers)
+if (messageForm) {
+  messageForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    sendMessage();
+  });
+}
 
 function sendMessage() {
   const input = document.getElementById("messageInput");
