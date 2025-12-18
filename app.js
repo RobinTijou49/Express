@@ -27,10 +27,6 @@ require('./chat')(io);
     await db.sequelize.authenticate();
     console.log('✅ DB SQLite connectée');
 
-    // Synchronisation sans perdre les données
-    await db.sequelize.sync({ alter: true });
-    console.log('📦 Table Messages synchronisée');
-
   } catch (err) {
     console.error('❌ DB erreur', err);
   }
