@@ -37,3 +37,4 @@ Le serveur sera accessible sur : http://localhost:8080
 | Tout autre URL | GET      | Page 404 personnalisée                                  |
 
 
+public/js/chat.js (écoute et envoie les requetes a la page ) -> chat.js (methode métier)

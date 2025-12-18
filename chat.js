@@ -1,8 +1,13 @@
 module.exports = function(io) {
+  const db = require('./models');
+
   const messagesByRoom = { general: [] };
   const usersByRoom = {}; // <-- pour suivre les pseudos dans chaque room
 
   const badWords = ["merde", "con", "putain", "salope", "encule"];
+
+  const Message = db.Message;
+  
 
   function cleanMessage(message) {
     let cleaned = message;
@@ -26,7 +31,7 @@ socket.on("joinRoom", ({ pseudo, room }) => {
   }
 
   // Ajouter le pseudo à la room
-  socket.pseudo = pseudo;  // <-- assigner AVANT le message système
+  socket.pseudo = pseudo;
   socket.room = room;
   usersByRoom[room].add(pseudo);
 
@@ -37,10 +42,10 @@ socket.on("joinRoom", ({ pseudo, room }) => {
   // envoyer l'historique
   socket.emit("chatHistory", messagesByRoom[room]);
 
-  // message système
+  // message système d'arriver
   const systemMsg = {
     pseudo: "System : ",
-    message: `${socket.pseudo} a rejoint le salon.`, // <-- utiliser socket.pseudo
+    message: `${socket.pseudo} a rejoint le salon.`,
     date: new Date().toLocaleTimeString("fr-FR"),
     system: true
   };
@@ -51,15 +56,28 @@ socket.on("joinRoom", ({ pseudo, room }) => {
     socket.on("chatMessage", (message) => {
       if (!socket.pseudo || !socket.room) return;
 
-      const messageData = {
-        pseudo: socket.pseudo,
-        message: cleanMessage(message),
-        date: new Date().toLocaleTimeString("fr-FR")
-      };
+      (async () => {
+        try {
+          const savedMessage = await Message.create({
+            message: cleanMessage(message),
+            room: socket.room
+          });
 
-      messagesByRoom[socket.room].push(messageData);
+          const messageData = {
+            pseudo: socket.pseudo,
+            message: savedMessage.message,
+            date: savedMessage.createdAt.toLocaleTimeString("fr-FR")
+          };
 
-      io.to(socket.room).emit("newMessage", messageData);
+          // Ajouter dans la mémoire pour l’historique du chat
+          if (!messagesByRoom[socket.room]) messagesByRoom[socket.room] = [];
+          messagesByRoom[socket.room].push(messageData);
+
+          io.to(socket.room).emit("newMessage", messageData);
+        } catch (err) {
+          console.error("Erreur DB:", err);
+        }
+      })();
     });
 
     socket.on("disconnect", () => {

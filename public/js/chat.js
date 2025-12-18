@@ -1,6 +1,5 @@
 const socket = io();
 
-// éléments DOM
 const joinBtn = document.getElementById("join");
 const loginDiv = document.getElementById("login");
 const chatDiv = document.getElementById("chat");
@@ -29,14 +28,12 @@ joinBtn.addEventListener("click", () => {
   chatDiv.style.display = "block";
 });
 
-// historique
 socket.on("chatHistory", (messages) => {
   messagesDiv.innerHTML = "";
   messages.forEach(addMessage);
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 });
 
-// nouveau message
 socket.on("newMessage", (data) => {
   addMessage(data);
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
@@ -48,7 +45,7 @@ const messageForm = document.getElementById("messageForm");
 // click on the button
 document.getElementById("send").addEventListener("click", sendMessage);
 
-// Enter key inside the input — prevent default to avoid form submit
+
 document.getElementById("messageInput").addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
@@ -56,7 +53,7 @@ document.getElementById("messageInput").addEventListener("keypress", (e) => {
   }
 });
 
-// handle form submit (covers pressing Enter in some browsers)
+
 if (messageForm) {
   messageForm.addEventListener("submit", (e) => {
     e.preventDefault();

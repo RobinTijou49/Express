@@ -11,12 +11,30 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
+const db = require('./models');
 
 var app = express();
 const server = http.createServer(app);
 const io = new Server(server);
-//Utilisation du code dans chat.js
+//Utilisation du code de chat.js
 require('./chat')(io);
+
+// connexion à la base de données
+
+(async () => {
+  try {
+    await db.sequelize.authenticate();
+    console.log('✅ DB SQLite connectée');
+
+    // Synchronisation sans perdre les données
+    await db.sequelize.sync({ alter: true });
+    console.log('📦 Table Messages synchronisée');
+
+  } catch (err) {
+    console.error('❌ DB erreur', err);
+  }
+})();
+
 
 const port = process.env.PORT || 3000;
 const basePath = "/tp-api";
@@ -51,16 +69,10 @@ app.use(`${basePath}/login`, loginRouter);
 app.use(`${basePath}/logout`, logoutRouter);
 
 
-/**********************
- * 404
- **********************/
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-/**********************
- * ERROR HANDLER
- **********************/
 app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -74,9 +86,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-/**********************
- * SERVER START
- **********************/
 server.listen(port, "0.0.0.0", () => {
   console.log(`🚀 Serveur démarré sur http://localhost:${port}${basePath}`);
 });
