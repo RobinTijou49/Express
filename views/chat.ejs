@@ -5,14 +5,26 @@
 <div class="chat-container">
 
   <!-- CONNEXION -->
-  <div id="login" class="card">
-    <input id="pseudo" placeholder="Votre pseudo" class="input-field" />
-    <select id="room" class="input-field">
-      <option value="general">Général</option>
-      <option value="dev">Dev</option>
-      <option value="random">Random</option>
-    </select>
-    <button id="join" class="btn">Rejoindre</button>
+  <div id="login" class="card auth-card">
+    <h2 class="small">Rejoindre le chat</h2>
+
+    <div class="form-row">
+      <label for="pseudo">Pseudo</label>
+      <input id="pseudo" placeholder="Votre pseudo" class="input-field" />
+    </div>
+
+    <div class="form-row">
+      <label for="room">Salon</label>
+      <select id="room" class="input-field">
+        <option value="general">Général</option>
+        <option value="dev">Dev</option>
+        <option value="random">Random</option>
+      </select>
+    </div>
+
+    <div class="form-row form-actions">
+      <button id="join" class="btn">Rejoindre</button>
+    </div>
   </div>
 
 <!-- CHAT -->
@@ -23,10 +35,12 @@
 
   <div id="messages" class="messages"></div>
 
-  <div style="margin-top:10px;">
-    <input id="messageInput" placeholder="Votre message" class="input-field" />
-    <button id="send" class="btn">Envoyer</button>
-  </div>
+  <form id="messageForm">
+    <div class="form-row chat-actions" style="margin-top:10px;">
+      <input id="messageInput" placeholder="Votre message" class="input-field" />
+      <button id="send" class="btn">Envoyer</button>
+    </div>
+  </form>
 </div>
 
 

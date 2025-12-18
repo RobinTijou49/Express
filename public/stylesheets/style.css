@@ -113,6 +113,10 @@ footer.site-footer{padding:24px 0;text-align:center;color:var(--muted);border-to
   border-radius: 5px;
 }
 
+/* inputs used across pages */
+.input-field{padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:inherit;width:100%}
+.chat-actions{display:flex;gap:10px;align-items:center;width:100%}
+
 .messages .message {
   margin-bottom: 8px;
 }
