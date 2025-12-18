@@ -34,6 +34,7 @@ Le serveur sera accessible sur : http://localhost:8080
 | `/error`       | GET      | Page d’erreur volontaire                                |
 | `/users/:id`   | GET      | Page de profil avec un id passer dans l'url             |
 | `/dab`         | GET/POST | DAB fonctionnel / Calcul du nombre de billets           |
+| `http://localhost:3000/api/messages/:room` | GET | API qui renvoie tous les messages d'une room           |
 | Tout autre URL | GET      | Page 404 personnalisée                                  |
 
 

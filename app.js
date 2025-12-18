@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
+const messagesRouter = require('./routes/messages');
 const db = require('./models');
 
 var app = express();
@@ -67,6 +68,11 @@ app.use(`${basePath}/`, indexRouter);
 app.use(`${basePath}/users`, usersRouter);
 app.use(`${basePath}/login`, loginRouter);
 app.use(`${basePath}/logout`, logoutRouter);
+
+
+app.use('/api/messages', messagesRouter);
+app.get('/', (req, res) => res.send('API fonctionne ✅'));
+
 
 
 app.use(function(req, res, next) {
