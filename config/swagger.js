@@ -11,11 +11,11 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000/tp-api/api",
+        url: process.env.BASE_URL || "http://localhost:3000/tp-api/api",
       },
     ],
   },
-  apis: ["./routes/*.js"], // Swagger lira toutes les routes pour générer la doc
+  apis: ["./routes/*.js"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
