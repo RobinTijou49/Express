@@ -13,6 +13,14 @@ var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
 const messagesRouter = require('./routes/messages');
 const userRouter = require('./routes/user.api');
+const courseRouteur = require('./routes/courses');
+const categoriesRouter = require('./routes/categories');
+const reviewsRouter = require('./routes/reviews');
+const enrollementsRouter = require('./routes/enrollments');
+const chapterRouteur = require('./routes/chapter');
+const certificatesRouter = require('./routes/certificates');
+const courseCategoriesRouter = require('./routes/courseCategories');
+
 
 const db = require('./models');
 
@@ -68,6 +76,13 @@ app.use(`${basePath}/login`, loginRouter);
 app.use(`${basePath}/logout`, logoutRouter);
 app.use(`${basePath}/api/messages`, messagesRouter);
 app.use(`${basePath}/api/users`, userRouter);
+app.use(`${basePath}/api/courses`, courseRouteur);
+app.use(`${basePath}/api/categories`, categoriesRouter);
+app.use(`${basePath}/api/reviews`, reviewsRouter);
+app.use(`${basePath}/api/enrollments`, enrollementsRouter);
+app.use(`${basePath}/api/chapters`, chapterRouteur);
+app.use(`${basePath}/api/certificates`, certificatesRouter);
+app.use(`${basePath}/api/course-categories`, courseCategoriesRouter);
 
 
 app.get('/', (req, res) => res.send('API fonctionne ✅'));
