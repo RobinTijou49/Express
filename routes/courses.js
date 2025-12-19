@@ -40,6 +40,12 @@ router.get('/', async (req, res) => {
  *     responses:
  *       200:
  *         description: Liste des cours
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Course '
  */
 
 module.exports = router;

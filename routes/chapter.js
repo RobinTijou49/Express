@@ -37,5 +37,14 @@ router.get('/', async (req, res) => {
  * /chapters:
  *   get:
  *     summary: Récupère tous les chapitres
+ *     responses:
+ *       200:
+ *         description: Liste des chapitres
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Chapter '
  */
 module.exports = router;

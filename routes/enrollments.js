@@ -38,5 +38,14 @@ router.get('/', async (req, res) => {
  * /enrollments:
  *   get:
  *     summary: Récupère toutes les inscriptions
+ *     responses:
+ *       200:
+ *         description: Liste des inscriptions
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Enrollment '
  */
 module.exports = router;

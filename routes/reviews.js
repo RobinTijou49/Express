@@ -40,5 +40,14 @@ router.get('/', async (req, res) => {
  * /reviews:
  *   get:
  *     summary: Récupère tous les avis
+ *     responses:
+ *       200:
+ *         description: Liste des avis
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Review '
  */
 module.exports = router;

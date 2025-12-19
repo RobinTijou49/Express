@@ -32,5 +32,14 @@ router.get('/', async (req, res) => {
  * /categories:
  *   get:
  *     summary: Récupère toutes les catégories
+ *     responses:
+ *       200:
+ *         description: Liste des catégories
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Category '
  */
 module.exports = router;

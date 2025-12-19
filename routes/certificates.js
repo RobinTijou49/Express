@@ -37,5 +37,14 @@ router.get('/', async (req, res) => {
  * /certificates:
  *   get:
  *     summary: Récupère tous les certificats
+ *     responses:
+ *       200:
+ *         description: Liste des certificats
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Certificate'
  */
 module.exports = router;
