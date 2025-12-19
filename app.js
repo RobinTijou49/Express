@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -7,6 +8,7 @@ var session = require('express-session');
 var http = require('http');
 const { Server } = require("socket.io");
 const setupSwagger = require('./config/swagger');
+
 
 
 var indexRouter = require('./routes/index');
