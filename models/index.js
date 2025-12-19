@@ -7,5 +7,7 @@ db.sequelize = sequelize;
 
 // Import des modèles
 db.Message = require('./Message')(sequelize, db.Sequelize.DataTypes);
+db.User = require('./User')(sequelize, db.Sequelize.DataTypes);
+
 
 module.exports = db;
