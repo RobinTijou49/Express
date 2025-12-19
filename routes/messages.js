@@ -25,4 +25,49 @@ router.get('/:room', async (req, res) => {
   }
 });
 
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Message:
+ *       type: object
+ *       required:
+ *         - message
+ *         - room
+ *       properties:
+ *         id:
+ *           type: integer
+ *         message:
+ *           type: string
+ *         room:
+ *           type: string
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ */
+
+/**
+ * @swagger
+ * /messages/{room}:
+ *   get:
+ *     summary: Récupère tous les messages d'une room
+ *     parameters:
+ *       - in: path
+ *         name: room
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Liste des messages d'une room
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Message'
+ */
+
+
 module.exports = router;

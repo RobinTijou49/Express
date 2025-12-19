@@ -12,5 +12,25 @@ router.get('/', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Category:
+ *       type: object
+ *       required:
+ *         - label
+ *       properties:
+ *         id:
+ *           type: integer
+ *         label:
+ *           type: string
+ */
 
+/**
+ * @swagger
+ * /categories:
+ *   get:
+ *     summary: Récupère toutes les catégories
+ */
 module.exports = router;

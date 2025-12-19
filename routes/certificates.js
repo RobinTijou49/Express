@@ -12,4 +12,30 @@ router.get('/', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Certificate:
+ *       type: object
+ *       required:
+ *         - enrollment_id
+ *       properties:
+ *         id:
+ *           type: integer
+ *         enrollment_id:
+ *           type: integer
+ *         issue_date:
+ *           type: string
+ *           format: date
+ *         serial_number:
+ *           type: string
+ */
+
+/**
+ * @swagger
+ * /certificates:
+ *   get:
+ *     summary: Récupère tous les certificats
+ */
 module.exports = router;

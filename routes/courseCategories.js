@@ -12,4 +12,26 @@ router.get('/', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     CourseCategory:
+ *       type: object
+ *       required:
+ *         - course_id
+ *         - category_id
+ *       properties:
+ *         course_id:
+ *           type: integer
+ *         category_id:
+ *           type: integer
+ */
+
+/**
+ * @swagger
+ * /course-categories:
+ *   get:
+ *     summary: Récupère toutes les relations cours-catégories
+ */
 module.exports = router;

@@ -12,4 +12,31 @@ router.get('/', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Enrollment:
+ *       type: object
+ *       required:
+ *         - user_id
+ *         - course_id
+ *       properties:
+ *         id:
+ *           type: integer
+ *         user_id:
+ *           type: integer
+ *         course_id:
+ *           type: integer
+ *         date:
+ *           type: string
+ *           format: date
+ */
+
+/**
+ * @swagger
+ * /enrollments:
+ *   get:
+ *     summary: Récupère toutes les inscriptions
+ */
 module.exports = router;

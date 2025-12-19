@@ -12,5 +12,30 @@ router.get('/', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Chapter:
+ *       type: object
+ *       required:
+ *         - course_id
+ *         - title
+ *       properties:
+ *         id:
+ *           type: integer
+ *         course_id:
+ *           type: integer
+ *         title:
+ *           type: string
+ *         duration:
+ *           type: integer
+ */
 
+/**
+ * @swagger
+ * /chapters:
+ *   get:
+ *     summary: Récupère tous les chapitres
+ */
 module.exports = router;

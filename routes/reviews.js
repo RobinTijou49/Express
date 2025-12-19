@@ -12,5 +12,33 @@ router.get('/', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Review:
+ *       type: object
+ *       required:
+ *         - user_id
+ *         - course_id
+ *         - rating
+ *       properties:
+ *         id:
+ *           type: integer
+ *         user_id:
+ *           type: integer
+ *         course_id:
+ *           type: integer
+ *         rating:
+ *           type: integer
+ *         comment:
+ *           type: string
+ */
 
+/**
+ * @swagger
+ * /reviews:
+ *   get:
+ *     summary: Récupère tous les avis
+ */
 module.exports = router;

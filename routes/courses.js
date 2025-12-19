@@ -12,5 +12,34 @@ router.get('/', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Course:
+ *       type: object
+ *       required:
+ *         - title
+ *         - price
+ *       properties:
+ *         id:
+ *           type: integer
+ *         title:
+ *           type: string
+ *         price:
+ *           type: number
+ *         instructor_id:
+ *           type: integer
+ */
+
+/**
+ * @swagger
+ * /courses:
+ *   get:
+ *     summary: Récupère tous les cours
+ *     responses:
+ *       200:
+ *         description: Liste des cours
+ */
 
 module.exports = router;

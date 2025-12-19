@@ -99,6 +99,90 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - name
+ *         - email
+ *         - role
+ *       properties:
+ *         id:
+ *           type: integer
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *         role:
+ *           type: string
+ */
+
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Récupère tous les utilisateurs
+ *     responses:
+ *       200:
+ *         description: Liste des utilisateurs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ *
+ *   post:
+ *     summary: Crée un nouvel utilisateur
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       201:
+ *         description: Utilisateur créé
+ */
+
+/**
+ * @swagger
+ * /users/{id}:
+ *   put:
+ *     summary: Met à jour un utilisateur
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de l'utilisateur
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: Utilisateur mis à jour
+ *
+ *   delete:
+ *     summary: Supprime un utilisateur
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de l'utilisateur
+ *     responses:
+ *       200:
+ *         description: Utilisateur supprimé
+ */
 
 
 module.exports = router;

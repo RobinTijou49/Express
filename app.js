@@ -6,6 +6,8 @@ var logger = require('morgan');
 var session = require('express-session');
 var http = require('http');
 const { Server } = require("socket.io");
+const setupSwagger = require('./config/swagger');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -86,6 +88,9 @@ app.use(`${basePath}/api/course-categories`, courseCategoriesRouter);
 
 
 app.get('/', (req, res) => res.send('API fonctionne ✅'));
+
+// Swagger
+setupSwagger(app);
 
 app.use(function(req, res, next) {
   next(createError(404));
