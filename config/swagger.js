@@ -78,12 +78,12 @@ const options = {
             createdAt: { type: 'string', format: 'date-time', example: '2025-12-19T12:34:56Z' }
           }
         },
-        Category: {
-          type: 'object',
-          properties: {
+        Category: {   // <-- le nom doit correspondre au $ref
+            type: 'object',
+            properties: {
             id: { type: 'integer', example: 1 },
             label: { type: 'string', example: 'Informatique' }
-          }
+            }
         },
         Certificate: {
           type: 'object',

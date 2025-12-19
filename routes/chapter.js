@@ -45,6 +45,6 @@ router.get('/', async (req, res) => {
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Chapter '
+ *                 $ref: '#/components/schemas/Chapter'
  */
 module.exports = router;
