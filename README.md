@@ -46,6 +46,12 @@ Le serveur sera accessible sur : http://localhost:8080
 | `/tp-api/api/chapters` | GET | Récupère tous les chapitres |
 | `/tp-api/api/certificates` | GET | Récupère tous les certificats |
 | `/tp-api/api/course-categories` | GET | Récupère les relations cours / catégories |
+| `/tp-api/auth/google` | GET | Connexion a Google OpenID |
+| `/tp-api/auth/google/callback` | GET | Callback venant de Google |
+| `/tp-api//profile` | GET | Recupère les informations du profile du compte google connecter |
+
+
+
 
 
 

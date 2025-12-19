@@ -41,6 +41,7 @@ jobs:
 
             # Mettre à jour le .env pour la prod
             sed -i 's|BASE_URL=http://localhost:3000/tp-api/api|BASE_URL=https://robintijou.com/tp-api/api|' .env
+            sed -i 's|OIDC_CALLBACK_URL=http://localhost:3000/tp-api/auth/google/callback|OIDC_CALLBACK_URL=https://robintijou.com/tp-api/auth/google/callback|' .env
 
             # Redémarrer l'app
             pm2 restart mon-express || pm2 start app.js --name mon-express

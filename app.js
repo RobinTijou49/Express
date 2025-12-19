@@ -1,20 +1,109 @@
 require('dotenv').config();
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var session = require('express-session');
-var http = require('http');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const session = require('express-session');
+const http = require('http');
 const { Server } = require("socket.io");
+
+// Passport Google
+const passport = require('./config/passport-google');
+
+// Swagger
 const setupSwagger = require('./config/swagger');
 
+// Database
+const db = require('./models');
 
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var loginRouter = require('./routes/login');
-var logoutRouter = require('./routes/logout');
+// Chat
+require('./chat')(io);
+
+// Connexion DB
+(async () => {
+  try {
+    await db.sequelize.authenticate();
+    console.log('✅ DB SQLite connectée');
+  } catch (err) {
+    console.error('❌ DB erreur', err);
+  }
+})();
+
+const port = process.env.PORT || 3000;
+const basePath = "/tp-api";
+
+// View engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// Middlewares
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+// Statics
+app.use(basePath, express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Session + Passport
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Variables pour views
+app.use((req, res, next) => {
+  res.locals.username = req.session.username || null;
+  res.locals.isAdmin = req.session.isAdmin || false;
+  next();
+});
+
+// --- ROUTES GOOGLE OAUTH ---
+
+// Routes Google
+app.get(`${basePath}/auth/google`,
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+app.get(`${basePath}/auth/google/callback`,
+  passport.authenticate('google', { failureRedirect: `${basePath}/login` }),
+  (req, res) => {
+    res.redirect(`${basePath}/profile`);
+  }
+);
+
+// --- Logout ---
+app.get(`${basePath}/logout`, (req, res) => {
+  req.logout(() => {
+    res.redirect(basePath);
+  });
+});
+// Middleware pour protéger une route
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) return next();
+  res.redirect(`${basePath}/login`);
+}
+
+// --- Exemple route protégée ---
+app.get(`${basePath}/profile`, ensureAuthenticated, (req, res) => {
+  res.json(req.user);
+});
+
+// --- ROUTES DE L’API ---
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const loginRouter = require('./routes/login');
+const logoutRouter = require('./routes/logout');
 const messagesRouter = require('./routes/messages');
 const userRouter = require('./routes/user.api');
 const courseRouteur = require('./routes/courses');
@@ -25,55 +114,7 @@ const chapterRouteur = require('./routes/chapter');
 const certificatesRouter = require('./routes/certificates');
 const courseCategoriesRouter = require('./routes/courseCategories');
 
-
-const db = require('./models');
-
-var app = express();
-const server = http.createServer(app);
-const io = new Server(server);
-//Utilisation du code de chat.js
-require('./chat')(io);
-
-// connexion à la base de données
-
-(async () => {
-  try {
-    await db.sequelize.authenticate();
-    console.log('✅ DB SQLite connectée');
-
-  } catch (err) {
-    console.error('❌ DB erreur', err);
-  }
-})();
-
-
-const port = process.env.PORT || 3000;
-const basePath = "/tp-api";
-
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-
-app.use(basePath, express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(session({
-  secret: 'mon-secret',
-  resave: false,
-  saveUninitialized: true
-}));
-
-app.use((req, res, next) => {
-  res.locals.username = req.session.username || null;
-  res.locals.isAdmin = req.session.isAdmin || false;
-  next();
-});
-
+// Utilisation des routes
 app.use(`${basePath}/`, indexRouter);
 app.use(`${basePath}/users`, usersRouter);
 app.use(`${basePath}/login`, loginRouter);
@@ -88,29 +129,30 @@ app.use(`${basePath}/api/chapters`, chapterRouteur);
 app.use(`${basePath}/api/certificates`, certificatesRouter);
 app.use(`${basePath}/api/course-categories`, courseCategoriesRouter);
 
-
+// Test home
 app.get('/', (req, res) => res.send('API fonctionne ✅'));
 
 // Swagger
 setupSwagger(app);
 
-app.use(function(req, res, next) {
+// 404
+app.use((req, res, next) => {
   next(createError(404));
 });
 
-app.use(function(err, req, res, next) {
+// Error handler
+app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   res.status(err.status || 500);
-
   if (err.status === 404) {
     return res.render('404', { title: 'Page non trouvée' });
   }
-
   res.render('error');
 });
 
+// Serveur
 server.listen(port, "0.0.0.0", () => {
   console.log(`🚀 Serveur démarré sur http://localhost:${port}${basePath}`);
 });
